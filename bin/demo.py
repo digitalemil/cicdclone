@@ -129,7 +129,7 @@ def install_jenkins(jenkins_name, jenkins_url):
     os.remove("jenkins_config.json")
     assert package_installed('jenkins', jenkins_name), log_and_exit('!! package failed to install')
     log("waiting for Jenkins service to come up at '{}'".format(jenkins_url))
-    end_time = time.time() + 60
+    end_time = time.time() + 240
     while time.time() < end_time:
         if verify_jenkins(jenkins_url):
             break
@@ -237,6 +237,8 @@ def build_log(jenkins_url, job_name):
 
 def create_credentials(jenkins_url, credential_name, username, password):
     log("creating credentials '{}'".format(credential_name))
+    log(username)
+    log(password)
     credential = { 'credentials' : {
         'scope' : 'GLOBAL',
         'id' : credential_name,

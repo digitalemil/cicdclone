@@ -28,7 +28,7 @@ node {
 
     // Build Docker image
     stage 'Build'
-    sh "docker build -t mesosphere/cd-demo-app:${gitCommit()} ."
+    sh "docker build -t digitalemil/cd-demo-app:${gitCommit()} ."
 
 
     // Test Docker image
@@ -47,8 +47,10 @@ node {
             usernameVariable: 'DOCKER_HUB_USERNAME'
         ]]
     ) {
-        sh "docker login -u '${env.DOCKER_HUB_USERNAME}' -p '${env.DOCKER_HUB_PASSWORD}' -e demo@mesosphere.com"
-        sh "docker push mesosphere/cd-demo-app:${gitCommit()}"
+        sh "echo ${env.DOCKER_HUB_USERNAME}"
+        sh "echo ${env.DOCKER_HUB_PASSWORD}"
+        sh "docker login -u '${env.DOCKER_HUB_USERNAME}' -p '${env.DOCKER_HUB_PASSWORD}'"
+        sh "docker push digitalemil/mypublicrepo:cd-demo-app:${gitCommit()}"
     }
 
 
@@ -61,7 +63,7 @@ node {
         credentialsId: 'dcos-token',
         filename: 'marathon.json',
         appid: 'jenkins-deployed-app',
-        docker: "mesosphere/cd-demo-app:${gitCommit()}".toString(),
+        docker: "digitalemil/mypublicrepo:cd-demo-app:${gitCommit()}".toString(),
         labels: ['lastChangedBy': "${gitEmail()}".toString()]
     )
 
