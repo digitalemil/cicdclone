@@ -33,7 +33,7 @@ node {
 
     // Test Docker image
     stage 'Test'
-    sh "docker run -d --name=test-container-${env.BUILD_NUMBER} digitalemil/mypublicrepo:cd-demo-app:${gitCommit()}"
+    sh "docker run -d --name=test-container-${env.BUILD_NUMBER} digitalemil/mypublicrepo:cd-demo-app-${gitCommit()}"
     sh "docker run mesosphere/linkchecker linkchecker --no-warnings http://${ipAddress()}:4000/"
 
 
@@ -50,7 +50,7 @@ node {
         sh "echo  ${env.DOCKER_HUB_USERNAME}"
         sh "echo  ${env.DOCKER_HUB_PASSWORD}"
         sh "docker login -u '${env.DOCKER_HUB_USERNAME}' -p '${env.DOCKER_HUB_PASSWORD}'"
-        sh "docker push digitalemil/mypublicrepo:cd-demo-app:${gitCommit()}"
+        sh "docker push digitalemil/mypublicrepo:cd-demo-app-${gitCommit()}"
     }
 
 
@@ -63,7 +63,7 @@ node {
         credentialsId: 'dcos-token',
         filename: 'marathon.json',
         appid: 'jenkins-deployed-app',
-        docker: "digitalemil/mypublicrepo:cd-demo-app:${gitCommit()}".toString(),
+        docker: "digitalemil/mypublicrepo:cd-demo-app-${gitCommit()}".toString(),
         labels: ['lastChangedBy': "${gitEmail()}".toString()]
     )
 
