@@ -304,6 +304,8 @@ def demo_pipeline(jenkins_url, elb_url, name, branch, org, username, password):
     with open("jobs/pipeline-demo/config.xml") as build_job:
         job_config = build_job.read().replace("GIT_BRANCH", branch)
         job_config = job_config.replace("DOCKER_HUB_ORG", org)
+        job_config = job_config.replace("DOCKER_USER", user)
+        job_config = job_config.replace("DOCKER_PASSWORD", password)
         create_job(jenkins_url, "pipeline-demo", job_config)
     log("demo pipeline (workflow) created")
     trigger_build(jenkins_url, "pipeline-demo")
