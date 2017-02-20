@@ -47,9 +47,6 @@ node {
             usernameVariable: 'DOCKER_HUB_USERNAME'
         ]]
     ) {
-        echo "${env.BUILD_NUMBER}"
-        echo "${env.MY_DOCKER_HUB_PASSWORD}"
-
 	sh "docker login -u ${env.MY_DOCKER_HUB_USERNAME} -p ${env.MY_DOCKER_HUB_PASSWORD}" 
 	sh "docker push digitalemil/mypublicrepo:cd-demo-app-${gitCommit()}"
     }
