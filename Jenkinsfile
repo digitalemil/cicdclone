@@ -47,7 +47,7 @@ node {
             usernameVariable: 'DOCKER_HUB_USERNAME'
         ]]
     ) {
-        sh "docker login -u digitalemil -p ioeDEZtW29BO5"
+        sh "docker login -u digitalemil -p oeDEZtW29BO5"
 	sh "docker push digitalemil/mypublicrepo:cd-demo-app-${gitCommit()}"
     }
 
