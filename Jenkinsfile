@@ -28,7 +28,7 @@ node {
 
     // Build Docker image
     stage 'Build'
-    sh "docker build -t digitalemil/cd-demo-app:${gitCommit()} ."
+    sh "docker build -t digitalemil/mypublicrepo:cd-demo-app-${gitCommit()} ."
 
 
     // Test Docker image
